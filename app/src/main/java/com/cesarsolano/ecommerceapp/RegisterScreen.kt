@@ -33,26 +33,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(){
+fun RegisterScreen(navController: NavController){
     Scaffold(
-        topBar={
+        topBar = {
             TopAppBar(
-                title = {},
+                title = { },
                 navigationIcon = {
                     IconButton(onClick = {
+                        navController.popBackStack()
 
-                    }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
-                    }
+                    }) {}
+
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                 }
-
             )
         }
-    ){ innerPadding ->
+
+
+    ) { innerPadding ->
         Column( modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize()
@@ -172,5 +175,5 @@ fun RegisterScreen(){
 @Preview
 @Composable
 fun RegisterScreenPreview(){
-    RegisterScreen()
+    //RegisterScreen()
 }
