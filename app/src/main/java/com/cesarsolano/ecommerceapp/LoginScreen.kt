@@ -14,7 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -30,9 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     Scaffold { innerPadding -> Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -108,12 +108,17 @@ fun LoginScreen() {
         }
         Spacer(modifier = Modifier.height(24.dp))
 
-        TextButton(onClick = {}) { }
-        Text(
-            text = "¿No tienes una cuenta? Registrate",
-            color = Color(0xFFFF9900)
+        TextButton(onClick = {
 
-        )
+            navController.navigate(route = "register")
+
+        }) {
+            Text(
+                text = "¿No tienes una cuenta? Registrate",
+                color = Color(0xFFFF9900)
+
+            )
+        }
     }
     }
 }
@@ -122,7 +127,7 @@ fun LoginScreen() {
 @Preview
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen()
+    //LoginScreen()
 }
 
 

@@ -5,12 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.cesarsolano.ecommerceapp.ui.theme.EcommerceAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,6 +17,25 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EcommerceAppTheme {
+
+                val myNavController= rememberNavController()
+                val myStartDestination= "login"
+
+                NavHost(
+
+                    navController= myNavController,
+                    startDestination= myStartDestination,
+                    modifier= Modifier.fillMaxSize()
+                ){
+                    composable(route= "login"){
+                        LoginScreen(myNavController)
+                }
+                    composable(route= "register"){
+                        RegisterScreen()
+                }
+                }
+
+
                 }
             }
         }
