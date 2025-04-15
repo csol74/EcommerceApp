@@ -1,6 +1,5 @@
 package com.cesarsolano.ecommerceapp
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
