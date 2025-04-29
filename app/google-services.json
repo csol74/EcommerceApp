@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552055635147",
+    "project_id": "ecommerceapp-6e4dd",
+    "storage_bucket": "ecommerceapp-6e4dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552055635147:android:778e7958d8a4b0e028ef4e",
+        "android_client_info": {
+          "package_name": "com.cesarsolano.ecommerceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJlJ7ONOd7KIAYWsgXSYQHrOXHa3wjerc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
