@@ -10,6 +10,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
 import com.cesarsolano.ecommerceapp.ui.theme.EcommerceAppTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +21,16 @@ class MainActivity : ComponentActivity() {
             EcommerceAppTheme {
 
                 val myNavController= rememberNavController()
-                val myStartDestination= "login"
+                var myStartDestination= "login"
+                val auth = Firebase.auth
+                val currentUser= auth.currentUser
+
+
+                if(currentUser != null){
+                    myStartDestination= "home"
+                }else{
+                    myStartDestination="login"
+                }
 
                 NavHost(
 
@@ -28,13 +39,29 @@ class MainActivity : ComponentActivity() {
                     modifier= Modifier.fillMaxSize()
                 ){
                     composable("login"){
-                        LoginScreen(myNavController)
+                        LoginScreen(onClickRegister = {
+                            myNavController.navigate("register")
+                        }, onSuccessfulLogin = {
+                            myNavController.navigate("home"){
+                                popUpTo("login"){inclusive = true}
+                            }
+                        } )
                 }
                     composable( "register"){
-                        RegisterScreen(myNavController)
+                        RegisterScreen(onClickBack = {
+                            myNavController.popBackStack()
+                        }, onSuccessfulRegister = {
+                            myNavController.navigate("home"){
+                                popUpTo(0)
+                            }
+                        })
                 }
                     composable("home"){
-                        HomeScreen()
+                        HomeScreen(onClickLogout = {
+                            myNavController.navigate("login"){
+                                popUpTo(0)
+                            }
+                        })
                     }
                 }
 

@@ -13,6 +13,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,15 +27,21 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(onClickLogout: () -> Unit = {}){
+
+    val auth= Firebase.auth
+    val user= auth.currentUser
+
     Scaffold (
         topBar = {
             val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -76,7 +84,24 @@ fun HomeScreen(){
                     start = 16.dp,
                     bottom = 8.dp
                 )
+
             )
+            if (user != null) {
+                Text(user.email.toString())
+            } else {
+                Text("No hay usuario")
+            }
+            Button(
+                onClick = {
+                    auth.signOut()
+                    onClickLogout()
+            },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFF9900)
+                )
+            ) {
+                Text("Cerrar Sesión")
+            }
             val listadoPromociones = listOf(
                 "https://img.freepik.com/vector-gratis/plantilla-banner-horizontal-degradado-ventas-buen-fin_23-2150873588.jpg",
                 "https://img.freepik.com/psd-gratis/plantilla-pagina-destino-buen-fin-diseno-plano_23-2150851933.jpg",
@@ -104,18 +129,6 @@ fun HomeScreen(){
 }
 
 
-
-
-
-
-
-@Preview
-@Composable
-fun HomeScreenPreview(){
-    HomeScreen()
-}
-
-
 @Composable
 fun CardPromo(urlImage: String){
     Card(modifier = Modifier
@@ -133,3 +146,7 @@ fun CardPromo(urlImage: String){
 
     }
 }
+
+
+
+
